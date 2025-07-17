@@ -76,6 +76,17 @@ namespace ProductSalesApp.Controllers
             ViewBag.Cart = cart;
             return PartialView("_CartSummary");
         }
+        public IActionResult ReviewCart()
+        {
+            ViewBag.Cart = cart;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CancelSale()
+        {
+            cart = new Cart(); // sepeti sıfırla
+            return RedirectToAction("Index");
+        }
 
     }
 }

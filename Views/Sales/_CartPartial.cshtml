@@ -33,9 +33,10 @@ else
     <div class="d-flex justify-content-between align-items-center mt-3">
         <strong class="fs-5">Total: @cart.Total TL</strong>
 
-        <form asp-action="CompleteSale" method="post">
-            <button type="submit" class="btn btn-primary">Complete Sale</button>
+        <form asp-action="ReviewCart" method="get">
+            <button type="submit" class="btn btn-primary">Next</button>
         </form>
+
     </div>
    
 

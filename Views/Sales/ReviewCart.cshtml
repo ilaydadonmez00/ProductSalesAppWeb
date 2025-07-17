@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Review Cart";
+    var cart = ViewBag.Cart as ProductSalesApp.Models.Cart;
+}
+
+<div class="container my-4">
+    <h1 class="mb-4 text-center">🛒 Review Your Cart</h1>
+
+    @if (cart.Items.Count == 0)
+    {
+        <div class="alert alert-info">Your cart is empty.</div>
+    }
+    else
+    {
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in cart.Items)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.TotalPrice TL</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <strong class="fs-5">Total: @cart.Total TL</strong>
+
+            <div>
+                <form asp-action="CancelSale" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger">❌ Cancel</button>
+                </form>
+                
+                <form asp-action="CompleteSale" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-success">✅ Confirm</button>
+                </form>
+
+                
+            </div>
+        </div>
+    }
+</div>

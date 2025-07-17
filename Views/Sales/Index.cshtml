@@ -63,10 +63,10 @@
                             document.getElementById("cart-summary").innerHTML = html;
                         });
 
-                        // Toast göster
                         const toastEl = document.getElementById('successToast');
-                        const toast = new bootstrap.Toast(toastEl);
+                        const toast = new bootstrap.Toast(toastEl, { delay: 1500 });
                         toast.show();
+
                     })
                     .catch(error => {
                         console.error("Error:", error);
