@@ -1,0 +1,19 @@
+﻿@{
+    int totalQuantity = 0;
+
+    if (ViewBag.Cart != null && ViewBag.Cart.Items != null)
+    {
+        foreach (var item in ViewBag.Cart.Items)
+        {
+            totalQuantity += item.Quantity;
+        }
+    }
+}
+
+<a href="@Url.Action("Index", "Sales")" class="btn btn-outline-primary">
+    🛒 Cart
+    @if (totalQuantity > 0)
+    {
+        <span class="badge bg-danger">@totalQuantity</span>
+    }
+</a>
