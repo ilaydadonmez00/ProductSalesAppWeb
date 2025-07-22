@@ -47,7 +47,7 @@ namespace ProductSalesApp.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = $"{product.Name} added to cart."
+                        message = $"{quantity} x {product.Name} added to cart."
                     });
                 }
                 else
