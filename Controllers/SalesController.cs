@@ -33,8 +33,6 @@ namespace ProductSalesApp.Controllers
             return View();
         }
 
-      
-        [HttpPost]
         [HttpPost]
         public IActionResult AddToCart(string barcode, int quantity)
         {
@@ -45,7 +43,7 @@ namespace ProductSalesApp.Controllers
                 if (product.Quantity >= quantity)
                 {
                     cart.AddItem(product, quantity);
-
+                    
                     return Json(new
                     {
                         success = true,
