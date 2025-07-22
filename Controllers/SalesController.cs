@@ -33,23 +33,41 @@ namespace ProductSalesApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        [HttpPost]
-        [HttpPost]
+      
         [HttpPost]
         [HttpPost]
         public IActionResult AddToCart(string barcode, int quantity)
         {
             var product = products.FirstOrDefault(p => p.Barcode == barcode);
+
             if (product != null)
             {
-                cart.AddItem(product, quantity);
+                if (product.Quantity >= quantity)
+                {
+                    cart.AddItem(product, quantity);
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = $"{product.Name} added to cart."
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = $"Not enough stock for {product.Name}. Available: {product.Quantity}"
+                    });
+                }
             }
 
-            return Ok();
+            return Json(new
+            {
+                success = false,
+                message = "Product not found!"
+            });
         }
-
-
 
 
 
@@ -87,6 +105,12 @@ namespace ProductSalesApp.Controllers
             cart = new Cart(); // sepeti sıfırla
             return RedirectToAction("Index");
         }
+        public IActionResult GetProductList()
+        {
+            ViewBag.Products = products;
+            return PartialView("_ProductListPartial");
+        }
+
 
     }
 }
