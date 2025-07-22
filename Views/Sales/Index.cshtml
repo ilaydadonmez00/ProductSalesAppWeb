@@ -34,18 +34,31 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+
+                            // Ürün listesini güncelle
+                            fetch('/Sales/GetProductList')
+                                .then(response => response.text())
+                                .then(html => {
+                                    document.getElementById("product-list").innerHTML = html;
+
+                                    // Yeni gelen formlar için tekrar event bind et
+                                    bindAddToCartForms();
+                                });
+
+                            // Sepeti güncelle
                             fetch('/Sales/GetCartPartial')
-                            .then(response => response.text())
-                            .then(html => {
-                                document.getElementById("cart-container").innerHTML = html;
-                            });
+                                .then(response => response.text())
+                                .then(html => {
+                                    document.getElementById("cart-container").innerHTML = html;
+                                });
 
                             fetch('/Sales/GetCartSummary')
-                            .then(response => response.text())
-                            .then(html => {
-                                document.getElementById("cart-summary").innerHTML = html;
-                            });
+                                .then(response => response.text())
+                                .then(html => {
+                                    document.getElementById("cart-summary").innerHTML = html;
+                                });
 
+                            // Başarılı toast
                             const toastEl = document.getElementById('successToast');
                             toastEl.querySelector('.toast-body').textContent = data.message;
                             const toast = new bootstrap.Toast(toastEl, { delay: 1500 });
@@ -64,8 +77,64 @@
                 });
             });
         });
+
+        // Yeni gelen ürün listesi için yeniden form event bind et
+        function bindAddToCartForms() {
+            document.querySelectorAll(".add-to-cart-form").forEach(form => {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+
+                            fetch('/Sales/GetProductList')
+                                .then(response => response.text())
+                                .then(html => {
+                                    document.getElementById("product-list").innerHTML = html;
+
+                                    bindAddToCartForms();
+                                });
+
+                            fetch('/Sales/GetCartPartial')
+                                .then(response => response.text())
+                                .then(html => {
+                                    document.getElementById("cart-container").innerHTML = html;
+                                });
+
+                            fetch('/Sales/GetCartSummary')
+                                .then(response => response.text())
+                                .then(html => {
+                                    document.getElementById("cart-summary").innerHTML = html;
+                                });
+
+                            const toastEl = document.getElementById('successToast');
+                            toastEl.querySelector('.toast-body').textContent = data.message;
+                            const toast = new bootstrap.Toast(toastEl, { delay: 1500 });
+                            toast.show();
+
+                        } else {
+                            const toastEl = document.getElementById('errorToast');
+                            toastEl.querySelector('.toast-body').textContent = data.message;
+                            const toast = new bootstrap.Toast(toastEl, { delay: 1500 });
+                            toast.show();
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                });
+            });
+        }
     </script>
 }
+
 
 
 
