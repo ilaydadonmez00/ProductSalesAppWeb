@@ -72,9 +72,15 @@ namespace ProductSalesApp.Controllers
         [HttpPost]
         public IActionResult CompleteSale()
         {
-            cart = new Cart();
-            return RedirectToAction("Index");
+            cart = new Cart(); // sepeti sıfırla
+            return RedirectToAction("OrderComplete");
         }
+
+        public IActionResult OrderComplete()
+        {
+            return View();
+        }
+
 
         public PartialViewResult GetCartPartial()
         {
@@ -100,9 +106,26 @@ namespace ProductSalesApp.Controllers
         [HttpPost]
         public IActionResult CancelSale()
         {
+            // Sepetteki ürünleri stoğa geri ekle
+            foreach (var item in cart.Items)
+            {
+                var product = products.FirstOrDefault(p => p.Barcode == item.Product.Barcode);
+                if (product != null)
+                {
+                    product.Quantity += item.Quantity;
+                }
+            }
+
             cart = new Cart(); // sepeti sıfırla
-            return RedirectToAction("Index");
+            return RedirectToAction("OrderCanceled");
         }
+
+
+        public IActionResult OrderCanceled()
+        {
+            return View();
+        }
+
         public IActionResult GetProductList()
         {
             ViewBag.Products = products;

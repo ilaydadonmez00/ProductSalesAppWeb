@@ -36,16 +36,72 @@
             <strong class="fs-5">Total: @cart.Total TL</strong>
 
             <div>
-                <form asp-action="CancelSale" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-danger">❌ Cancel</button>
-                </form>
-                
-                <form asp-action="CompleteSale" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-success">✅ Confirm</button>
-                </form>
+                <button type="button" id="cancelButton" class="btn btn-danger">
+                    ❌ Cancel
+                </button>
 
-                
+                <button type="button" id="confirmButton" class="btn btn-success">
+                    ✅ Confirm
+                </button>
+
             </div>
         </div>
     }
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelModalLabel">Are you sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you really want to cancel your order?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form asp-action="CancelSale" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Yes, cancel it</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Are you sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you really want to complete your order?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form asp-action="CompleteSale" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-success">Yes, complete it</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("cancelButton").addEventListener("click", function () {
+            var modal = new bootstrap.Modal(document.getElementById("cancelModal"));
+            modal.show();
+        });
+
+        document.getElementById("confirmButton").addEventListener("click", function () {
+            var modal = new bootstrap.Modal(document.getElementById("confirmModal"));
+            modal.show();
+        });
+    </script>
+}
