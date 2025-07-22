@@ -17,6 +17,7 @@ else
                     <th>Total Price</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (var item in cart.Items)
                 {
@@ -24,9 +25,23 @@ else
                         <td>@item.Product.Name</td>
                         <td>@item.Quantity</td>
                         <td>@item.TotalPrice TL</td>
+                        <td>
+                            <form class="remove-from-cart-form" method="post" action="/Sales/RemoveFromCart">
+                                <input type="hidden" name="barcode" value="@item.Product.Barcode" />
+                                <select name="quantity">
+                                    @for (int i = 1; i <= item.Quantity; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-danger">❌</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
+
+
         </table>
     </div>
 
@@ -41,5 +56,4 @@ else
    
 
 }
-
 

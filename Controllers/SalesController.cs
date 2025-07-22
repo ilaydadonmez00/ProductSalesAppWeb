@@ -108,6 +108,30 @@ namespace ProductSalesApp.Controllers
             ViewBag.Products = products;
             return PartialView("_ProductListPartial");
         }
+        [HttpPost]
+        public IActionResult RemoveFromCart(string barcode, int quantity)
+        {
+            var cartItem = cart.Items.FirstOrDefault(i => i.Product.Barcode == barcode);
+            if (cartItem != null)
+            {
+                if (quantity >= cartItem.Quantity)
+                {
+                    // Sepetten tamamen çıkar
+                    cart.Items.Remove(cartItem);
+                    cartItem.Product.Quantity += cartItem.Quantity;
+                }
+                else
+                {
+                    // Sadece belirlenen miktarı düş
+                    cartItem.Quantity -= quantity;
+                    cartItem.Product.Quantity += quantity;
+                }
+
+                return Json(new { success = true, message = $"{quantity} x {cartItem.Product.Name} removed from cart." });
+            }
+
+            return Json(new { success = false, message = "Product not found in cart." });
+        }
 
 
     }
