@@ -28,14 +28,10 @@ else
                         <td>
                             <form class="remove-from-cart-form" method="post" action="/Sales/RemoveFromCart">
                                 <input type="hidden" name="barcode" value="@item.Product.Barcode" />
-                                <select name="quantity">
-                                    @for (int i = 1; i <= item.Quantity; i++)
-                                    {
-                                        <option value="@i">@i</option>
-                                    }
-                                </select>
-                                <button type="submit" class="btn btn-sm btn-danger">❌</button>
+                                <input type="number" name="quantity" value="1" min="1" max="@item.Quantity" class="form-control" style="width: 70px; display: inline-block;" />
+                                <button type="submit" class="btn btn-danger btn-sm">❌</button>
                             </form>
+
                         </td>
                     </tr>
                 }
