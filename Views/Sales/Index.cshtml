@@ -3,9 +3,32 @@
     var products = ViewBag.Products as List<ProductSalesApp.Models.Product>;
 }
 
+<a href="/Sales/Home" style="text-decoration: none;">
+    <div style="
+        position: absolute;
+        top: 120px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 20px;
+        color: blue;
+        font-weight: bold;
+        background-color: white;
+        z-index: 10;
+    ">
+        &lt;
+    </div>
+</a>
+
+
+
 <div class="container my-4">
     <h1 class="mb-4 text-center">Products</h1>
-
     <div id="product-list">
         @await Html.PartialAsync("_ProductListPartial")
     </div>
@@ -17,6 +40,7 @@
         @await Html.PartialAsync("_CartPartial")
     </div>
 </div>
+
 
 @section Scripts {
     <script>
