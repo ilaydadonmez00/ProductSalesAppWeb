@@ -25,13 +25,13 @@ namespace ProductSalesApp.Controllers
 
         private static Cart cart = new();
 
-        public IActionResult Index()
+        public IActionResult Products()
         {
             ViewBag.Products = products;
             ViewBag.Cart = cart;
-
-            return View();
+            return View(); // varsayılan olarak Products.cshtml’i arar
         }
+
 
         [HttpPost]
         public IActionResult AddToCart(string barcode, int quantity)
@@ -80,7 +80,6 @@ namespace ProductSalesApp.Controllers
         {
             return View();
         }
-
 
         public PartialViewResult GetCartPartial()
         {
