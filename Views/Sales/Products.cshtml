@@ -19,12 +19,10 @@
     </div>
 </a>
 
-
-
 <div class="container my-4">
     <h1 class="mb-4 text-center">Products</h1>
     <div id="product-list">
-        @await Html.PartialAsync("_ProductListPartial")
+        @await Html.PartialAsync("_ProductListPartial", products)
     </div>
 
     <hr class="my-5" />
@@ -34,7 +32,6 @@
         @await Html.PartialAsync("_CartPartial")
     </div>
 </div>
-
 
 @section Scripts {
     <script>
@@ -94,27 +91,25 @@
         }
 
         function updateUI() {
-            // Ürün listesi
             fetch('/Sales/GetProductList')
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("product-list").innerHTML = html;
-                    bindAddToCartForms(); // yeni gelen formlar için
+                    bindAddToCartForms();
                 });
 
-            // Sepet
             fetch('/Sales/GetCartPartial')
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("cart-container").innerHTML = html;
-                    bindRemoveFromCartForms(); // yeni gelen formlar için
+                    bindRemoveFromCartForms();
                 });
 
-            // Sepet özeti (isteğe bağlı)
             fetch('/Sales/GetCartSummary')
                 .then(response => response.text())
                 .then(html => {
-                    document.getElementById("cart-summary").innerHTML = html;
+                    const summary = document.getElementById("cart-summary");
+                    if (summary) summary.innerHTML = html;
                 });
         }
 
@@ -125,9 +120,8 @@
             toast.show();
         }
     </script>
-
-
 }
+
 
 
 
