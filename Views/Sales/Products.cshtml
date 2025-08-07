@@ -1,6 +1,7 @@
-﻿@{
+﻿@using Mikro.ProductSalesWeb.Domain.Entity
+@{
     ViewData["Title"] = "Products";
-    var products = ViewBag.Products as List<ProductSalesApp.Models.Product>;
+    var products = ViewBag.Products as List<Product>;
 }
 
 <a href="/Sales/Home" style="text-decoration: none;">

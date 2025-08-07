@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductSalesApp.Models;
-using ProductSalesAppWeb.Models;
-using System.Linq;
+using Mikro.ProductSalesWeb.Domain.Entity;
 
 namespace ProductSalesApp.Controllers
 {

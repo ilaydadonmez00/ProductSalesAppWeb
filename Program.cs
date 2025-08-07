@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ProductSalesApp.Models;
+using Mikro.ProductSalesWeb.Domain.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +34,6 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    // Eðer ürün tablosu boþsa örnek ürünleri ekle
     if (!context.Products.Any())
     {
         var initialProducts = new List<Product>

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProductSalesApp.Models;
+using Mikro.ProductSalesWeb.Domain.Entity;
 
 public class AppDbContext : DbContext
 {

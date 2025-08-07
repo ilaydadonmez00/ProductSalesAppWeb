@@ -1,5 +1,6 @@
 ﻿@{
-    var cart = ViewBag.Cart as ProductSalesApp.Models.Cart;
+    var cart = ViewBag.Cart as Mikro.ProductSalesWeb.Domain.Entity.Cart;
+
 }
 
 @if (cart?.Items == null || cart.Items.Count == 0)
